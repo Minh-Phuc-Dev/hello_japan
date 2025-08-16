@@ -11,8 +11,11 @@ jobs:
       - name: Setup workspace
         run: |
           mkdir -p /opt/hello-japan
+          mkdir -p /opt/hello-japan/Node
+          mkdir -p /opt/hello-japan/React
   react-deploy:
     runs-on: self-hosted
+    needs: setup-workspace   
     steps:
       - uses: actions/checkout@v4
       - name: Copy source, install dependencies, and build
@@ -25,6 +28,7 @@ jobs:
           npm run build
   node-deploy:
     runs-on: self-hosted
+    needs: setup-workspace   
     steps:
       - uses: actions/checkout@v4
       - name: Copy source, install dependencies

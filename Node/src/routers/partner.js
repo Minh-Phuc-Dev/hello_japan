@@ -14,7 +14,11 @@ router.use('/partner', authorizedAdmin)
 
 router.post(
     '/partner',
-    multer().single('file'),
+    multer(
+        {
+            dest: process.env.STATIC_FILES_PATH ?? `${process.cwd()}/public`,
+        }
+    ).single('file'),
     wrapperAsyncHandler(PartnerController.addStudyPartner)
 )
 

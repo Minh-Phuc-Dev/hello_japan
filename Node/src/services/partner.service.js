@@ -1,7 +1,6 @@
 const { HTTP_CODE, HTTP_REASON } = require("@constants/http.constant");
 const SuccessResponse = require("@helpers/success.helper");
 const sanitize = require("mongo-sanitize");
-const BucketFirebaseService = require("./firebase.service");
 const Partner = require("@models/partner");
 
 
@@ -19,10 +18,6 @@ class PartnerService {
 
     static async addPartner(partner, file) {
         const { name, address, phone, description, link, type } = partner
-        let logo = null
-        if (file) {
-            logo = await BucketFirebaseService.uploadFile(file)
-        }
 
         const payload = await Partner.create(
             {
@@ -30,7 +25,7 @@ class PartnerService {
                 name,
                 address,
                 phone,
-                logo,
+                logo: file ?? "",
                 description,
                 link,
                 type

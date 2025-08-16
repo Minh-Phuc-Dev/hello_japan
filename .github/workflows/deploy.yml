@@ -1,0 +1,37 @@
+name: Deploy
+
+on:
+  push:
+    branches: [main]
+
+jobs:
+  setup-workspace:
+    runs-on: self-hosted
+    steps:
+      - name: Setup workspace
+        run: |
+          mkdir -p /opt/hello-japan
+  react-deploy:
+    runs-on: self-hosted
+    steps:
+      - uses: actions/checkout@v4
+      - name: Copy source, install dependencies, and build
+        run: |
+          rm -rf opt/hello-japan/React
+          cp -r ./React opt/hello-japan/React
+          echo "${{ secrets.FE_ENV_FILE }}" >> opt/hello-japan/React/.env
+          cd opt/hello-japan/React
+          npm install
+          npm run build
+  node-deploy:
+    runs-on: self-hosted
+    steps:
+      - uses: actions/checkout@v4
+      - name: Copy source, install dependencies
+        run: |
+          rm -rf opt/hello-japan/Node
+          cp -r ./Node opt/hello-japan
+          echo "${{ secrets.BE_ENV_FILE }}" >> opt/hello-japan/Node/.env
+          cd opt/hello-japan/Node
+          npm install
+          sudo systemctl restart node.hello.japan.service

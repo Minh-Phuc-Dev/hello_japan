@@ -34,7 +34,7 @@ jobs:
       - name: Copy source, install dependencies
         run: |
           rm -rf /opt/hello-japan/Node
-          cp -r ./Node opt/hello-japan
+          cp -r ./Node /opt/hello-japan
           echo "${{ secrets.BE_ENV_FILE }}" >> /opt/hello-japan/Node/.env
           cd /opt/hello-japan/Node
           npm install

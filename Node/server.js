@@ -15,4 +15,4 @@ const server = app.listen(
 )
 
 SocketServer.io.attach(server)
-console.info(`Socket server start at: ${SocketServer.io}`)
+console.info(`Socket attached to: ${APP_PORT}`)

@@ -1,0 +1,14 @@
+[Unit]
+Description=Node
+After=network.target
+
+[Service]
+ExecStart=node /opt/hello-japan/Node/server.js
+WorkingDirectory=/opt/hello-japan/Node
+User=ubuntu
+Restart=always
+RestartSec=10
+KillMode=process
+
+[Install]
+WantedBy=multi-user.target
